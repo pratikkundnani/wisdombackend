@@ -4,12 +4,12 @@ const blogController = {
     // Create a new blog post
     async createBlog(req, res) {
       try {
-        const { title, content, userId, tags } = req.body;
+        const { title, content, userId, tags, img } = req.body;
         const newBlog = new Blog({
           title,
           content,
           userId,
-          tags
+          tags, img
         });
         await newBlog.save();
         res.status(201).json({ message: 'Blog post created successfully', blog: newBlog });
@@ -22,7 +22,9 @@ const blogController = {
     // Get all blog posts
     getAllBlogs: async (req, res) => {
       try {
+        console.log("Getting blog posts");
         const blogs = await Blog.find().populate('userId', 'username').populate('comments').populate('likes');
+        console.log(blogs);
         res.status(200).json(blogs);
       } catch (error) {
         console.error('', error);
