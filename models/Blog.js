@@ -12,6 +12,16 @@ const blogSchema = new mongoose.Schema({
   likes : [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}]
 });
 
+blogSchema.pre('remove', async function(next) {
+  try {
+    // Custom logic to delete associated blogs
+    await Comment.deleteMany({ _id: { $in: this.comments } });
+    next();
+  } catch (error) {
+    next(error);
+  }
+});
+
 const Blog = mongoose.model('Blog', blogSchema);
 
 module.exports = Blog;

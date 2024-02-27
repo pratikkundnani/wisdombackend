@@ -1,12 +1,34 @@
 User = require('../models/User');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 const userController = {
+    async logInUser (req, res) {
+        try {
+            const { username, password } = req.body;
+            const user = await User.findOne({ username });
+            if (!user) {
+                return res.status(401).json({ error: 'Invalid username or password' });
+            }
+            const passwordMatch = await bcrypt.compare(password, user.password);
+            if (!passwordMatch) {
+                return res.status(401).json({ error: 'Invalid username or password' });
+            }
+            const token = jwt.sign({ userId: user._id }, 'secret_key');
+            return res.json({ token });
+        }
+        catch(error) {
+            return res.status(500).json({error : error, message: "Error while logging in"});
+        }
+       
+    }, 
     async createUser(req, res) {
         try {
-        const {username, email, password} = req.body;
+        var {username, email, password} = req.body;
+        password = await bcrypt.hash(password, saltRounds = 10);
         const newUser = new User({username, email, password});
         await newUser.save();
-        return res.status(201).json({message : 'User createad successfully', user: newUser});
+        return res.status(201).json({message : 'User createad successfully', user: newUser });
         }
         catch(error) {
             console.log(error);
@@ -55,7 +77,10 @@ const userController = {
                 user.username = username;
             }
             if (password) {
-                user.password = password;
+                await bcrypt.hash(password, saltRounds = 10).then(function(hash) {
+                    // Store hash in your password DB.
+                    user.password = hash;
+                });
             }
             if (email) {
                 user.email = email;
