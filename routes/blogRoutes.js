@@ -20,8 +20,8 @@ function verifyToken (req, res, next) {
 
 
 blogRouter.post('/', verifyToken, blogController.createBlog); // Create a new blog post
-blogRouter.get('/', verifyToken, blogController.getAllBlogs); // Get all blog posts
-blogRouter.get('/:id', verifyToken, blogController.getBlogById); // Get a single blog post by ID
+blogRouter.get('/', blogController.getAllBlogs); // Get all blog posts
+blogRouter.get('/:id',blogController.getBlogById); // Get a single blog post by ID
 blogRouter.put('/:id', verifyToken, blogController.updateBlogById); // Update a blog post by ID
 blogRouter.delete('/:id', verifyToken, blogController.deleteBlogById); // Delete a blog post by ID
 

@@ -1,15 +1,17 @@
-Blog = require("../models/Blog");
+const Blog = require("../models/Blog");
 
 const blogController = {
     // Create a new blog post
     async createBlog(req, res) {
       try {
-        const { title, content, userId, tags, img } = req.body;
+        const { title, content, username, tags, img } = req.body;
+        const currentUser = await Blog.findOne({username:username});
         const newBlog = new Blog({
           title,
           content,
-          userId,
-          tags, img
+          userId: currentUser.userId,
+          tags, 
+          img
         });
         await newBlog.save();
         res.status(201).json({ message: 'Blog post created successfully', blog: newBlog });
