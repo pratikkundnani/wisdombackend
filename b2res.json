@@ -1,0 +1,15 @@
+{
+  "server": "nginx",
+  "date": "Thu, 07 Mar 2024 07:56:15 GMT",
+  "content-type": "image/jpeg",
+  "content-length": "56619",
+  "connection": "keep-alive",
+  "x-bz-file-name": "2a91b8ecf6eaeae98db3281e12cf9ec4",
+  "x-bz-file-id": "4_z47361cef3dbcfaa78dde0516_f105c4364777eae58_d20240307_m061823_c005_v0501015_t0055_u01709792303647",
+  "x-bz-content-sha1": "6141ac4a5c8a40d1fd1e25ba1bb0b1b415adf90e",
+  "x-bz-upload-timestamp": "1709792303647",
+  "accept-ranges": "bytes",
+  "x-bz-info-hash_sha1": "6141ac4a5c8a40d1fd1e25ba1bb0b1b415adf90e",
+  "x-bz-info-src_last_modified_millis": "1709792300627",
+  "strict-transport-security": "max-age=63072000"
+}

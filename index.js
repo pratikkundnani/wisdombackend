@@ -3,7 +3,6 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const routes = require('./routes');
 const cors = require('cors');
-
 const app = express();
 
 // Enable CORS for all requests
@@ -13,7 +12,6 @@ app.use(cors());
 app.use(bodyParser.json());
 
 require('dotenv').config()
-// console.log(process.env) 
 
 // Connect to MongoDB
 mongoose.connect(process.env.CONNECTION_STRING, {
@@ -24,7 +22,7 @@ mongoose.connect(process.env.CONNECTION_STRING, {
 .catch(error => console.error('MongoDB connection error:', error));
 
 // Routes
-app.get('/', (req, res) => {
+app.get('/health', (req, res) => {
     res.send('Hello, world!');
 });
 

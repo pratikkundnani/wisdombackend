@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+    //'http://localhost:3002/api/blogs/download/image/4_z47361cef3dbcfaa78dde0516_f119891bedaa9b25e_d20240302_m175940_c005_v0501018_t0022_u01709402380148'
+    fetch('http://localhost:3002/api/blogs/download/image/4_z47361cef3dbcfaa78dde0516_f119891bedaa9b25e_d20240302_m175940_c005_v0501018_t0022_u01709402380148').
+    then(async (response) => {
+        const c = await response.blob();
+        console.log(c);
+        return c;
+    }).then(blob => {
+        let reader = new FileReader();
+        reader.onloadend = function() {
+            let base64data = reader.result;
+            let img = document.createElement('img'); // create an img element
+            img.src = base64data; // set its src to the base64 string
+            console.log(base64data);
+            document.body.appendChild(img); // append it to the document
+        }
+        reader.readAsDataURL(blob);
+    });
+
+</script>
+<body>
+    
+</body>
+</html>
