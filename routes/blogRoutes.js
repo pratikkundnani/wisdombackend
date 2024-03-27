@@ -24,9 +24,13 @@ function verifyToken (req, res, next) {
 blogRouter.post('/', upload.single('image'), verifyToken, blogController.createBlog); // Create a new blog post
 blogRouter.get('/download/image/:id', blogController.downloadImage); // Download an image
 blogRouter.get('/', blogController.getAllBlogs); // Get all blog posts
+blogRouter.put('/like', verifyToken, blogController.likeBlog);
+blogRouter.put('/unlike', verifyToken, blogController.unlikeBlog);
+blogRouter.get('/search', blogController.searchBlogs); // Search for blog posts
 blogRouter.get('/user/:username', blogController.getAllBlogsByUser); // Get all blog posts by a user
 blogRouter.get('/:id',blogController.getBlogById); // Get a single blog post by ID
 blogRouter.put('/:id', verifyToken, blogController.updateBlogById); // Update a blog post by ID
 blogRouter.delete('/:id', verifyToken, blogController.deleteBlogById); // Delete a blog post by ID
+// Like a blog post
 
 module.exports = blogRouter

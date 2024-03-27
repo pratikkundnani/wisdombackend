@@ -1,11 +1,18 @@
 Comment = require('../models/Comment');
-
+User = require('../models/User');
+Blog = require('../models/Blog');
 const commentController = {
     async createComment(req, res) {
         try {
-            const {content, blogId, userId} = req.body;
-            const newComment = new Comment({content, blogId, userId});
+            const {content, blogId, username} = req.body;
+            const blog = await Blog.findById(blogId);
+            if(!blog) {
+                return res.status(404).json({message: 'Error while creating comment. Blog not found'});
+            }
+            const newComment = new Comment({content, blogId, username: username});
             await newComment.save();
+            blog.comments.push(newComment);
+            await blog.save();
             res.status(201).json({ message: 'comment created successfully', comment: newComment });
         }
          catch(error) {

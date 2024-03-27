@@ -8,6 +8,7 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true }, 
   blogs: [{type: mongoose.Schema.Types.ObjectId, ref: 'Blog'}],
   comments: [{type: mongoose.Schema.Types.ObjectId, ref: 'Comment'}],
+  likedBlogs: [{type: mongoose.Schema.Types.ObjectId, ref: 'Blog'}],
 });
 
 userSchema.pre('remove', async function(next) {

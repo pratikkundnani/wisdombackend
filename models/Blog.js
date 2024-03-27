@@ -12,6 +12,11 @@ const blogSchema = new mongoose.Schema({
   likes : [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}]
 });
 
+blogSchema.pre('save', function(next) {
+  this.updatedAt = Date.now();
+  next();
+});
+blogSchema.index({ title: 'text', content: 'text' });
 blogSchema.pre('remove', async function(next) {
   try {
     // Custom logic to delete associated blogs
